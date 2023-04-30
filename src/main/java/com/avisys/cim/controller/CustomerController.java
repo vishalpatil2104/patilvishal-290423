@@ -3,21 +3,25 @@ package com.avisys.cim.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.avisys.cim.Customer;
 import com.avisys.cim.repository.CustomerRepository;
+import com.avisys.cim.service.CustomerService;
 
 @RestController
 @RequestMapping("/customer")
 public class CustomerController {
 	
-//	@Autowired
-//	private CustomerService customerService;
+	@Autowired
+	private CustomerService customerService;
 	
 	
 	@Autowired
@@ -62,5 +66,20 @@ public class CustomerController {
 	        return customers; //return the populated list as per request
 	    }
 
+	//Endpoint 2 : To register customer if mobile no is different
+	  @PostMapping("/register")
+	  public ResponseEntity<?> addCustomer(@RequestBody Customer customer)
+		{
+		  //customer is added only if mobile no is not match with existing data
+		  Customer addedCustomer = customerService.addCustomer(customer);
+		  if(addedCustomer !=null)
+			  //if customer entry is created then return created entry details
+          return ResponseEntity.ok(addedCustomer);
+          
+		  //if validation fails then return proper msg with status code 500
+          return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                  .body("Unable to add the Customer. Mobile number already present.");
+          
+		}
 
 }
