@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -33,7 +34,9 @@ public class CustomerController {
 	    		//get request parameter as per user request
 	            @RequestParam(name = "firstName", required = false) String firstName,
 	            @RequestParam(name = "lastName", required = false) String lastName,
-	            @RequestParam(name = "mobileNumber", required = false) String mobileNumber) {
+	            @RequestParam(name = "mobileNumber", required = false) String mobileNumber
+	            //@RequestParam(name = "alternateMobileNumber", required = false) String alternateMobileNumber
+	            ) {
 
 	        List<Customer> customers; //created empty list
 	        if (firstName != null && lastName != null && mobileNumber != null) {
@@ -81,5 +84,15 @@ public class CustomerController {
                   .body("Unable to add the Customer. Mobile number already present.");
           
 		}
+	  
+	  //Endpoint 3 : To delete customer by mobile no
+	  @DeleteMapping("/remove")
+	  public ResponseEntity<?> removeCustomer(@RequestBody String mobileNumber){
+		  //return the response is not null then send deleted message to frontend
+		  if(customerService.removeCustomer(mobileNumber) != null)
+		  return ResponseEntity.ok(customerService.removeCustomer(mobileNumber));
+		  //if the response is null then send response as not valid mobile no.
+		  return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mobile no is not valid");
+	  }
 
 }

@@ -3,7 +3,8 @@ package com.avisys.cim.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.avisys.cim.Customer;
@@ -27,4 +28,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             String firstName, String lastName, String mobileNumber);
     
     //Customer findByMobileNumber(String mobileNumber);
+    
+//    @Query("SELECT c FROM Customer c WHERE c.mobileNumber = :mobileNumber")
+//    Customer searchByMobileNumber(@Param("mobileNumber") String mobileNumber);
 }

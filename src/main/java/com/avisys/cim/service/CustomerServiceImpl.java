@@ -30,4 +30,20 @@ public class CustomerServiceImpl implements CustomerService {
         return null;
 	}
 
+	@Override
+	public String removeCustomer(String mobileNumber) {
+		//get the customer to be delete from mobile number provided
+		List<Customer> customerToBeDelete=customerRepository.findByMobileNumberEquals(mobileNumber);
+		// check if customer is available for given mobile no.
+		
+		if(!customerToBeDelete.isEmpty()) {
+		//delete the customer to be delete i.e. at 0th index (as mobile no is unique)
+		customerRepository.delete(customerToBeDelete.get(0));
+		//return proper message to the controller
+		return "Customer Entry Deleted";
+		}
+		else
+			return null;
+	}
+
 }
