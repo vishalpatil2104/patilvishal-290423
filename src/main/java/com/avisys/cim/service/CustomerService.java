@@ -10,4 +10,7 @@ public interface CustomerService {
 	
 	//method to remove customer entry
 	public String removeCustomer(String mobileNumber);
+	
+	//method to update existing customer mobile number
+	public String updateCustomer(Long id,String mobileNumber);
 }

@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "3a46bfaa-bbef-4b07-bdd6-1f46c56b3226",
+		"name": "Avisys Assignment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25950654"
+	},
+	"item": [
+		{
+			"name": "Endpoint 1: Get details of customer",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/customer?lastName=smi",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "smi"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Endpoint 2 : Create new customer entry",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Vishal\",\r\n    \"lastName\": \"Patil\",\r\n    \"mobileNumber\": \"9876543210\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Endpoint 3 : Delete customer by mobile number",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "9111111113",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/remove",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"remove"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Endpoint 4 : Update existing customer's mobile number",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "9111111113",
+					"options": {
+						"raw": {
+							"language": "text"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/customer/update/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"customer",
+						"update",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

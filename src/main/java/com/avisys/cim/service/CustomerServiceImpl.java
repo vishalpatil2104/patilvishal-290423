@@ -46,4 +46,21 @@ public class CustomerServiceImpl implements CustomerService {
 			return null;
 	}
 
+	@Override
+	public String updateCustomer(Long id,String mobileNumber) {
+		//get the customer to be update from mobile number provided
+				Customer customerToBeUpdate=customerRepository.findById(id).orElse(null);
+				// check if customer is available for given mobile no.
+				
+				if(customerToBeUpdate != null) {
+				//update the mobile no of customer
+					customerToBeUpdate.setMobileNumber(mobileNumber);
+					customerRepository.saveAndFlush(customerToBeUpdate);
+				//return updated customer details to the controller
+						return "Updated";
+				}
+				else	
+				return null;
+	}
+
 }

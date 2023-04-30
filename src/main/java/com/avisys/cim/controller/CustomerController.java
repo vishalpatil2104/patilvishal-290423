@@ -7,7 +7,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -93,6 +95,17 @@ public class CustomerController {
 		  return ResponseEntity.ok(customerService.removeCustomer(mobileNumber));
 		  //if the response is null then send response as not valid mobile no.
 		  return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Mobile no is not valid");
+	  }
+	  
+	  //Endpoint 4 : To update the customer's mobile noumber
+	  @PutMapping("/update/{id}")
+	  public ResponseEntity<?> updateCustomer(@PathVariable Long id, @RequestBody String mobileNumber){
+		  //check if customer is exist in db or not
+		  if(customerService.updateCustomer(id, mobileNumber) != null)
+			  //return updated mesaage if data is updated
+			  return ResponseEntity.ok(customerService.updateCustomer(id, mobileNumber));
+		  //return error message if data is unable to update
+		  return ResponseEntity.status(HttpStatus.NOT_FOUND).body("No Existing customer found");
 	  }
 
 }
